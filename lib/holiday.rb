@@ -65,6 +65,61 @@ end
 
 
 
+class Person
+
+  attr_accessor :name, :bank_account, :happiness_points, :hygiene_points
+
+  def initialize (name)
+      @name = name
+      @bank_account = 25
+      @happiness_points = 8
+      @hygiene_points = 8
+  end
+
+  def happy #setter method 
+    @happiness_points 
+  end
+
+  def happiness=(num) #getter method 
+    # @happiness_points = happiness_points
+    if @happiness_points > 7
+      true
+    else
+      false 
+    end
+  end  
+  
+  # def happy?
+  #   if @happiness_points > 7
+  #     true 
+  #   else
+  #     false 
+  #   end
+  
+
+
+end 
+
+valuable = Person.new("EJ")
+valuable.get_happy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
