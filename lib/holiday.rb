@@ -63,63 +63,54 @@ def all_holidays_with_bbq(holiday_hash)
 end
 
 
+holiday_supplies = {
+  :winter => {
+    :christmas => ["Lights", "Wreath"],
+    :new_years => ["Party Hats"]
+  },
+  :summer => {
+    :fourth_of_july => ["Fireworks", "BBQ"]
+  },
+  :fall => {
+    :thanksgiving => ["Turkey"]
+  },
+  :spring => {
+    :memorial_day => ["BBQ"]
+  }
+}
 
-
-class Person
-
-  attr_accessor :name, :bank_account, :happiness_points, :hygiene_points
-
-  def initialize (name)
-      @name = name
-      @bank_account = 25
-      @happiness_points = 8
-      @hygiene_points = 8
-  end
-
-  def happy #setter method 
-    @happiness_points 
-  end
-
-  def happiness=(num) #getter method 
-    # @happiness_points = happiness_points
-    if @happiness_points > 7
-      true
-    else
-      false 
+def all_supplies(holiday_supplies)
+  holiday_supplies.each do |season, data|
+    puts "#{season.to_s.capitalize!}:"
+    data.each do |holiday, supply|
+      # holiday == :fourth_of_july
+      # we took the holiday key and converted a string
+      # str_holiday == fourth_of_july
+      # we took that converted string, and split it to an array with the elements divided by the _ (which removes the _)
+      # str_holiday == ["fourth", "of", "july"]
+      # we collected over that array in order to capitalize each word
+      # str_holiday == ["Fourth", "Of", "July"]
+      # we joined the elements together to form a string where each element is divded by an empty space
+      # str_holiday == "Fourth Of July"
+      str_holiday = holiday.to_s.split("_").collect {|word| word.capitalize!}.join(" ")
+      # supplies == ["BBQ", "Fireworks"]
+      # we joined it together converting the array to a string dividing each element by a , and a space
+      # supplies == "BBQ, Fireworks"
+      # "  Fourth Of July: BBQ, Fireworks"
+      puts "  #{str_holiday}: #{supply.join(", ")}"
     end
-  end  
-  
-  # def happy?
-  #   if @happiness_points > 7
-  #     true 
-  #   else
-  #     false 
-  #   end
-  
-
-
+  end 
 end 
 
-valuable = Person.new("EJ")
-valuable.get_happy
+all_supplies(holiday_supplies)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def all_holidays_with_bbq(holiday_hash)
+  # return an array of holiday names (as symbols) where supply lists
+  # include the string "BBQ"
+  holiday_hash.map do |season, holidays|
+    holidays.map do |holiday, supplies|
+      holiday if supplies.include?("BBQ")
+    end
+  end.flatten.compact
+end
+all_holidays_with_bbq(holiday_supplies)
